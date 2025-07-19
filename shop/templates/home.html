@@ -1,0 +1,5 @@
+<h1>Welcome to QuickCart</h1>
+{% for product in Products %}
+    <p>{{ product.name }} - ₹{{ product.price }}</p>
+{% endfor %}
+<a href="{% url 'displaycart' %}">Go to Cart</a>

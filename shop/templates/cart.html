@@ -1,0 +1,23 @@
+<h1>Your Cart</h1>
+
+{% for item in cart_items %}
+    <ul>
+        <li><strong>{{ item.product.name }}</strong></li>
+        <li>{{ item.product.description }}</li>
+        <li>Price per unit: ₹{{ item.product.price }}</li>
+        <li>Quantity: 
+             <a href="{% url 'decrease_quantity' item.product.id %}">➖</a>
+            
+            {{ item.quantity }}
+              <a href="{% url 'increase_quantity' item.product.id %}">➕</a>
+                 <a href="{% url 'remove' item.product.id %}">Remove</a>
+        </li>
+
+        <li>Total:₹{{ item.total }}</li>
+        
+   
+    </ul>
+    <hr>
+{% endfor %}
+<h2>Grand Total: ₹{{ grandtotal|floatformat:2 }}</h2>
+
