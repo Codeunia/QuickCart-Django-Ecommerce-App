@@ -1,23 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <h1>Your Cart</h1>
 
-{% for item in cart_items %}
-    <ul>
-        <li><strong>{{ item.product.name }}</strong></li>
-        <li>{{ item.product.description }}</li>
-        <li>Price per unit: ₹{{ item.product.price }}</li>
-        <li>Quantity: 
-             <a href="{% url 'decrease_quantity' item.product.id %}">➖</a>
-            
-            {{ item.quantity }}
-              <a href="{% url 'increase_quantity' item.product.id %}">➕</a>
-                 <a href="{% url 'remove' item.product.id %}">Remove</a>
-        </li>
+{% if cart_items %}
+  {% for item in cart_items %}
+    <div class="cart-item">
+      <strong>{{ item.product.name }}</strong><br>
+      <p>{{ item.product.description }}</p>
+      <p>Price per unit: ₹{{ item.product.price }}</p>
 
-        <li>Total:₹{{ item.total }}</li>
-        
-   
-    </ul>
-    <hr>
-{% endfor %}
-<h2>Grand Total: ₹{{ grandtotal|floatformat:2 }}</h2>
+      <p>
+        Quantity:
+        <a href="{% url 'decrease_quantity' item.product.id %}" class="qty-btn">➖</a>
+        {{ item.quantity }}
+        <a href="{% url 'increase_quantity' item.product.id %}" class="qty-btn">➕</a>
+        <a href="{% url 'remove' item.product.id %}" class="remove-btn">Remove</a>
+      </p>
 
+      <p><strong>Total: ₹{{ item.total |default:item.product.price }}</strong></p>
+    </div>
+  {% endfor %}
+
+  <h2>Grand Total: ₹{{ grandtotal }}</h2>
+
+  <a href="{% url 'checkout' %}" class="btn checkout-btn">Proceed to Checkout</a>
+{% else %}
+  <p>Your cart is empty.</p>
+  <a href="{% url 'home' %}" class="btn">Back to Shop</a>
+{% endif %}
+{% endblock %}

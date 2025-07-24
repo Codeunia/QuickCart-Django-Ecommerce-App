@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickCart</title>
+    
+    <!-- Simple default theme -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    
+    <!-- Your custom style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="fade-in-down">
+        <h1>QuickCart</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'displaycart' %}">Cart</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% if messages %}
+        <ul class="message-list">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <main class="fade-in content-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

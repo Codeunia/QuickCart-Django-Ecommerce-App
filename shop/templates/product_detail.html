@@ -1,4 +1,39 @@
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<p>Price: ₹{{ product.price }}</p>
-<a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }} - QuickCart</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="logo">QuickCart</a>
+        <div class="nav-links">
+            <a href="{% url 'displaycart' %}">Cart</a>
+            <a href="{% url 'home' %}">Shop</a>
+        </div>
+    </nav>
+
+    <div class="container fade-in">
+        {% block content %}
+        <h1>{{ product.name }}</h1>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
+        {% else %}
+            <p><em>No image available.</em></p>
+        {% endif %}
+
+        <p class="description">{{ product.description }}</p>
+        <p class="price">Price: ₹{{ product.price }}</p>
+
+        <a href="{% url 'add_to_cart' product.id %}" class="btn">Add to Cart</a>
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

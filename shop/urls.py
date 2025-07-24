@@ -10,4 +10,10 @@ urlpatterns = [
     path('remove/<int:product_id>/', views.remove, name='remove'),
 
     path('displaycart/', views.displaycart, name='displaycart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('register/', views.register_view, name='register'),
+path('login/', views.login_view, name='login'),
+path('order-confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),
+
+path('logout/', views.logout_view, name='logout'),
 ]

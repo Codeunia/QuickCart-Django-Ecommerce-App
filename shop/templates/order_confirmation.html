@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="logo">QuickCart</a>
+        <div class="nav-links">
+            <a href="{% url 'displaycart' %}">Cart</a>
+            <a href="{% url 'home' %}">Shop</a>
+        </div>
+    </nav>
+
+    <div class="container fade-in">
+         {% block content %}
+        <h2>Thank you for your order!</h2>
+        <p>Your order ID is <strong>#{{ order_id }}</strong>.</p>
+        <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
+    {% endblock %}
+    </div>
+</body>
+</html>
